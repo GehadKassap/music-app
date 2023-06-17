@@ -24,17 +24,21 @@
 </template>
 
 <script>
-import { mapStores } from 'pinia'
-import useModalStore from '@/stores/modal'
+import { mapStores  } from 'pinia';
+// import { mapStores , mapState , mapWritableState } from 'pinia'
+import useModalStore from '@/stores/modal';
 export default {
   methods: {
     toggleAuthModal() {
+      // this.isOpen = !this.isOpen;
+      // console.log(this.isOpen);
       this.modalStore.isOpen = !this.modalStore.isOpen
       console.log(this.modalStore.isOpen)
     }
   },
   computed: {
-    ...mapStores(useModalStore)
+    ...mapStores(useModalStore),
+    // ...mapWritableState(useModalStore ,["isOpen"])
   }
 }
 </script>
