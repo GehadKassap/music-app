@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed z-10 inset-0 overflow-y-auto " :class="hiddenClass" id="modal">
+  <div class="fixed z-10 inset-0 overflow-y-auto" :class="hiddenClass" id="modal">
     <div
       class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
     >
@@ -28,132 +28,35 @@
           <ul class="flex flex-wrap mb-4">
             <li class="flex-auto text-center">
               <a
-                class="block rounded py-3 px-4 transition "
+                class="block rounded py-3 px-4 transition"
                 href="#"
                 @click.prevent="tab = 'login'"
-                :class="{'hover:text-white text-white bg-blue-600': tab === 'login' ,
-                 'hover:text-blue-600' : tab === 'register'}"
+                :class="{
+                  'hover:text-white text-white bg-blue-600': tab === 'login',
+                  'hover:text-blue-600': tab === 'register'
+                }"
                 >Login</a
               >
             </li>
             <li class="flex-auto text-center">
-              <a class="block rounded py-3 px-4 transition" href="#"
-              :class="{'hover:text-white text-white bg-blue-600': tab === 'register' ,
-                 'hover:text-blue-600' : tab === 'login'}"
-              @click.prevent="tab ='register'">Register</a>
+              <a
+                class="block rounded py-3 px-4 transition"
+                href="#"
+                :class="{
+                  'hover:text-white text-white bg-blue-600': tab === 'register',
+                  'hover:text-blue-600': tab === 'login'
+                }"
+                @click.prevent="tab = 'register'"
+                >Register</a
+              >
             </li>
           </ul>
 
           <!-- Login Form -->
-          <form v-show="tab === 'login'">
-            <!-- Email -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Email</label>
-              <input
-                type="email"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Enter Email"
-              />
-            </div>
-            <!-- Password -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Password</label>
-              <input
-                type="password"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Password"
-              />
-            </div>
-            <button
-              type="submit"
-              class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
-            >
-              Submit
-            </button>
-          </form>
+          <login-form v-if="tab === 'login'"></login-form>
+
           <!-- Registration Form -->
-          <vee-form @submit="register" v-show="tab === 'register'" :validation-schema="schema">
-            <!-- Name -->
-            <!-- :rules="'required'" -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Name</label>
-              <vee-field
-                name="name"
-                type="text"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Enter Name"
-              />
-              <ErrorMessage class="text-red-600" name="name"/>
-            </div>
-            <!-- Email -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Email</label>
-              <vee-field
-                type="email"
-                name="email"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Enter Email"
-              />
-            </div>
-            <ErrorMessage class="text-red-600" name="email"/>
-            <!-- Age -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Age</label>
-              <vee-field
-                name="age"
-                type="number"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-              />
-              <ErrorMessage  name="age" class="text-red-600"/>
-            </div>
-            <!-- Password -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Password</label>
-              <vee-field
-                name="password"
-                type="password"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Password"
-              />
-              <ErrorMessage class="text-red-600" name="password"/>
-            </div>
-            <!-- Confirm Password -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Confirm Password</label>
-              <vee-field
-                name="confirmPass"
-                type="password"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Confirm Password"
-              />
-              <ErrorMessage class="text-red-600" name="confirmPass"/>
-            </div>
-            <!-- Country -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Country</label>
-              <vee-field as="select" name="country"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-              >
-                <option value="USA">USA</option>
-                <option value="Mexico">Mexico</option>
-                <option value="Germany">Germany</option>
-                <option value="egypt">Egypt</option>
-              </vee-field>
-              <ErrorMessage class="text-red-600" name="country"/>
-            </div>
-            <!-- TOS -->
-            <div class="mb-3 pl-6">
-              <vee-field value="1" name="tos" type="checkbox" class="w-4 h-4 float-left -ml-6 mt-1 rounded" />
-              <label class="inline-block">Accept terms of service</label>
-              <ErrorMessage class="text-red-600 block" name="tos"/>
-            </div>
-            <button
-              type="submit"
-              class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
-            >
-              Submit
-            </button>
-          </vee-form>
+          <register-form v-else></register-form>
         </div>
       </div>
     </div>
@@ -161,35 +64,23 @@
 </template>
 
 <script>
-import { mapState , mapWritableState} from "pinia";
-import useModalStore from "@/stores/modal";
+import { mapState, mapWritableState } from 'pinia'
+import useModalStore from '@/stores/modal'
+import RegisterForm from '@/components/auth/RegisterForm.vue'
+import LoginForm from '@/components/auth/LoginForm.vue'
 export default {
   name: 'Auth',
-  data(){
+  data() {
     return {
-      tab:"login",
-      schema:{
-        name:"required|min:3|max:100|alpha_spaces",
-        password : "required|min:3|max:100",
-        confirmPass : "confirmed:@password",
-        tos : "required",
-        age : "required|min_value:18|max_value:99",
-        email : "required|email",
-        country : "required|exculded:egypt",
-      }
+      tab: 'login'
     }
   },
-  methods:{
-    register(values){
-      console.log(values);
-    }
-
-  },
-  computed:{
-    ...mapState(useModalStore, ["hiddenClass"]),
+  components: { RegisterForm, LoginForm },
+  computed: {
+    ...mapState(useModalStore, ['hiddenClass']),
     // ...mapWritableState(useModalStore, ["isOpen"])
     ...mapWritableState(useModalStore, {
-      "modalVisibility":"isOpen"
+      modalVisibility: 'isOpen'
     })
   }
 }
